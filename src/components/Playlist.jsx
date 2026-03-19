@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchPlaylist } from "../services/fetchPlaylist";
 import PlaylistCard from "./ui/PlaylistCard";
-
+import { useOutletContext } from "react-router-dom";
 
 const Playlist = () => {
     const [playlist, setPlaylist] = useState(null)
+    const context = useOutletContext()
+    const searchQuery = context?.searchQuery || ''
+
     useEffect(() => {
         const getPlaylist = async () => {
             try {
@@ -17,11 +20,28 @@ const Playlist = () => {
         getPlaylist()
     }, [])
 
+    // Filter playlists based on search query
+    const filteredPlaylists = searchQuery
+        ? playlist?.data?.filter((pl) => {
+            const title = pl?.snippet?.title?.toLowerCase() || ''
+            const description = pl?.snippet?.description?.toLowerCase() || ''
+            const query = searchQuery.toLowerCase()
+            return title.includes(query) || description.includes(query)
+        })
+        : playlist?.data
 
     return (
         <div className="p-6">
-            <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 3xl:grid-cols-6">
-                {playlist?.data?.map((pl, i) => (
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+                {searchQuery ? `Search Results (${filteredPlaylists?.length || 0})` : "Playlists"}
+            </h2>
+
+            {filteredPlaylists?.length === 0 && searchQuery && (
+                <p className="text-center text-gray-500">No playlists found matching your search.</p>
+            )}
+
+            <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 3xl:grid-cols-6 justify-items-center ">
+                {filteredPlaylists?.map((pl, i) => (
                     <PlaylistCard key={i} playlist={pl} />
                 ))}
             </div>

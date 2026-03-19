@@ -7,6 +7,7 @@ import { fetchChanelData } from '../services/fetchChanelData'
 const YoutubeProfileRoute = () => {
 
     const [profileDetails, setProfileDetails] = useState(null)
+    const [searchQuery, setSearchQuery] = useState('')
 
     const tabs = [
         { name: 'Home', path: '/' },
@@ -24,8 +25,8 @@ const YoutubeProfileRoute = () => {
     return (
         <>
             <ChanelDetails data={profileDetails?.data} />
-            <ChannelNavbar tabs={tabs} />
-            <Outlet />
+            <ChannelNavbar tabs={tabs} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <Outlet context={{ searchQuery }} />
         </>
     )
 }

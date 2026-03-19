@@ -5,7 +5,7 @@ export const fetchRelatedVideos = async () => {
     const res = await AxiosInstanceForYoutube.request({
       method: "GET",
       url: "/related/eLyISYdoVac",
-      params: { page: "1", limit: "10" },
+      params: { page: "1", limit: "46" },
       headers: { accept: "application/json" },
     });
     // console.log(res.data);

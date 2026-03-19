@@ -20,8 +20,8 @@ const VideoCard = ({ video }) => {
             </div>
 
 
-            <div className="flex justify-between mt-2">
-                <div>
+            <div className="flex justify-between mt-2 gap-x-2">
+                <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-semibold line-clamp-2">
                         {video?.items?.snippet?.title}
                     </h3>
@@ -30,7 +30,7 @@ const VideoCard = ({ video }) => {
                     </p>
                 </div>
 
-                <HiOutlineDotsVertical className="text-xl text-gray-600" />
+                <HiOutlineDotsVertical className="text-xl text-gray-600 shrink-0 cursor-pointer" />
             </div>
         </div>
     )

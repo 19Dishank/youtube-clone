@@ -2,11 +2,15 @@ import { Search } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-const ChannelNavbar = ({ tabs }) => {
+const ChannelNavbar = ({ tabs, searchQuery, setSearchQuery }) => {
 
     const [isHidden, setIsHidden] = useState(true)
     const navigate = useNavigate()
     const location = useLocation()
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value)
+    }
 
     return (
         <nav className="w-full border-b border-zinc-200 bg-white sticky top-0 z-40">
@@ -46,7 +50,9 @@ const ChannelNavbar = ({ tabs }) => {
                         <input
                             type="text"
                             placeholder="Search"
-                            className={`border-b-2 px-4 py-1 ml-2 transition-opacity duration-100 ${isHidden ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            className={`active:outline-none focus:outline-none border-b-2 px-4 py-1 ml-2 transition-opacity duration-100 ${isHidden ? "opacity-0 pointer-events-none" : "opacity-100"}`}
 
                         />
                     </div>

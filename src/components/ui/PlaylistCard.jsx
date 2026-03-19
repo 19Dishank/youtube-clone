@@ -17,7 +17,7 @@ export default function PlaylistCard({ playlist }) {
                         className="w-full h-36.25 object-cover transition duration-300 group-hover:scale-105"
                     />
 
-                    <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+                    <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded flex items-center gap-1 font-bold ">
                         <CgPlayList className="text-sm" />
                         {playlist?.videoCount || ""} videos
                     </div>

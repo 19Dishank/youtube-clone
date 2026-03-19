@@ -5,7 +5,7 @@ export const fetchPlaylist = async () => {
     const res = await AxiosInstanceForYoutube.request({
       method: "GET",
       url: "/playlists",
-      params: { page: "1", limit: "10" },
+      params: { page: "1", limit: "20" },
       headers: { accept: "application/json" },
     });
     // console.log(res.data);

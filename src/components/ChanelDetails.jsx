@@ -19,11 +19,13 @@ const ChanelDetails = ({ data, isVerified }) => {
             <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 
                 {/*Profile */}
-                <div className="relative shrink-0">
+                {/* Added flex, justify-center, and md:block to handle the centering logic */}
+                <div className="relative shrink-0 flex justify-center md:block">
                     <img
                         src={data?.info?.snippet?.thumbnails?.medium?.url}
                         alt={data?.info?.snippet?.title}
-                        className="w-28 h-28 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-sm -mt-12 md:mt-0"
+                        /* Changed -mt-12 to mx-auto (for horizontal centering) and kept md:mt-0 */
+                        className="w-28 h-28 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-sm -mt-12 mx-auto md:mx-0 md:mt-0"
                     />
                 </div>
 
