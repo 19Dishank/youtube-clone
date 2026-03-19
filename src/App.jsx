@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react'
-import { fetchChanelData } from './services/fetchChanelData'
-import ProfilePage from './pages/ProfilePage'
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import AppRoutes from './routes/AppRoutes'
 
 const App = () => {
-
   return (
-    <>
-      <ProfilePage />
-    </>
+    <AppRoutes />
   )
 }
 
