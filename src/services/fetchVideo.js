@@ -1,6 +1,6 @@
 import { AxiosInstanceForYoutube } from "../config/axios";
 
-export const fetchRelatedVideos = async (limit = 20, page = 1) => {
+export const fetchVideos = async (limit = 20, page = 1) => {
   try {
     const res = await AxiosInstanceForYoutube.request({
       method: "GET",
