@@ -16,7 +16,6 @@ AxiosInstanceForYoutube.interceptors.request.use(
 
 AxiosInstanceForYoutube.interceptors.response.use(
   (response) => {
-    console.log("Response received with status code:", response.status);
     return response;
   },
   (error) => {
