@@ -4,6 +4,7 @@ import { CommentContext } from "../../context/CommentsContext";
 import { VideoByIdContext } from "../../context/VideoById";
 import { useNavigate } from "react-router-dom";
 import { RecommendedVideoContext } from "../../context/RecomendedVideoContext";
+import { X, Repeat, Shuffle, MoreVertical, Play } from 'lucide-react';
 
 export const Icons = {
     Back: () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>,
@@ -240,3 +241,104 @@ export const RecommendedSidebar = ({ recommendedVideos, videoId }) => {
 
     )
 };
+
+
+export const videos = [
+    {
+        id: 'v1',
+        title: 'Lets build a SAAS starter template with Clerk and NextJS',
+        channelName: 'Hitesh Choudhary',
+        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
+        duration: '11:36'
+    },
+    {
+        id: 'v2',
+        title: 'Event Driven Architecture | A guide on Clerk Webhooks',
+        channelName: 'Hitesh Choudhary',
+        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
+        duration: '12:38'
+    },
+    // ... more videos
+];
+export const PlaylistSidebar = ({ playlistTitle, author, videos, currentVideoId }) => {
+    return (
+        <div className="w-full max-w-[400px] border border-gray-200 rounded-xl overflow-hidden bg-white flex flex-col h-[500px]">
+            {/* Header Section */}
+            <div className="p-4 bg-gray-50 border-b border-gray-200">
+                <div className="flex justify-between items-start mb-2">
+                    <div className="pr-4">
+                        <h2 className="font-bold text-lg leading-tight line-clamp-1">
+                            {playlistTitle}
+                        </h2>
+                        <p className="text-sm text-gray-600 mt-1">
+                            {author} - <span className="text-xs font-medium">1/8</span>
+                        </p>
+                    </div>
+                    <button className="p-1 hover:bg-gray-200 rounded-full transition-colors">
+                        <X size={20} />
+                    </button>
+                </div>
+
+                {/* Playlist Controls */}
+                <div className="flex items-center gap-4 mt-2">
+                    <button className="text-gray-600 hover:text-black transition-colors">
+                        <Repeat size={18} />
+                    </button>
+                    <button className="text-gray-600 hover:text-black transition-colors">
+                        <Shuffle size={18} />
+                    </button>
+                    <div className="ml-auto">
+                        <button className="p-1 hover:bg-gray-200 rounded-full">
+                            <MoreVertical size={18} />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Video List Section */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+                {videos.map((video, index) => {
+                    const isActive = video.id === currentVideoId;
+                    return (
+                        <div
+                            key={video.id}
+                            className={`flex gap-3 p-2 cursor-pointer transition-colors ${isActive ? 'bg-blue-50/80 hover:bg-blue-100/80' : 'hover:bg-gray-100'
+                                }`}
+                        >
+                            {/* Index or Play Icon */}
+                            <div className="w-4 flex items-center justify-center shrink-0">
+                                {isActive ? (
+                                    <Play size={10} fill="black" className="ml-1" />
+                                ) : (
+                                    <span className="text-[11px] text-gray-500">{index + 1}</span>
+                                )}
+                            </div>
+
+                            {/* Thumbnail */}
+                            <div className="relative w-24 h-14 shrink-0">
+                                <img
+                                    src={video.thumbnail}
+                                    alt={video.title}
+                                    className="w-full h-full object-cover rounded-md"
+                                />
+                                <div className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] px-1 rounded">
+                                    {video.duration}
+                                </div>
+                            </div>
+
+                            {/* Info */}
+                            <div className="flex flex-col justify-start">
+                                <h4 className={`text-sm font-semibold line-clamp-2 leading-snug ${isActive ? 'text-black' : 'text-gray-900'
+                                    }`}>
+                                    {video.title}
+                                </h4>
+                                <p className="text-[11px] text-gray-500 mt-1">{video.channelName}</p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+

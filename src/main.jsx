@@ -6,17 +6,19 @@ import { BrowserRouter } from 'react-router-dom'
 import { ProfileContextProvider } from './context/ProfileContext.jsx'
 import { RelatedVIdeoContextProvider } from './context/RelatedVideoContext.jsx'
 import { RecommendedVideoContextProvider } from './context/RecomendedVideoContext.jsx'
+import { PlayListVideoByIdContextProvider } from './context/PlayListDetailsContext.jsx'
 import { PlayListContextProvider } from './context/PlayListContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-
-  <RelatedVIdeoContextProvider>
-    <PlayListContextProvider>
-      <RecommendedVideoContextProvider>
-        <App />
-      </RecommendedVideoContextProvider>
-    </PlayListContextProvider>
-  </RelatedVIdeoContextProvider>
-
-
+  <ProfileContextProvider>
+    <RelatedVIdeoContextProvider>
+      <PlayListContextProvider>
+        <PlayListVideoByIdContextProvider>
+          <RecommendedVideoContextProvider>
+            <App />
+          </RecommendedVideoContextProvider>
+        </PlayListVideoByIdContextProvider>
+      </PlayListContextProvider>
+    </RelatedVIdeoContextProvider>
+  </ProfileContextProvider>
 )

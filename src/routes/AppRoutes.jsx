@@ -6,6 +6,7 @@ import { StreamingSkeleton, VideoGridSkeleton } from '../components/Skeletons'
 import { PlayListContextProvider } from '../context/PlayListContext'
 import { ProfileContextProvider } from '../context/ProfileContext'
 import NotFoundPage from '../components/NotFoundPage'
+import Test from '../components/Test'
 
 
 const VideoSection = lazy(() => import('../components/VideoSection'))
@@ -15,7 +16,6 @@ const StreamVideo = lazy(() => import('../components/ui/StreamVideo'))
 const AppRoutes = () => {
     return (
         <>
-
             <Routes>
                 <Route path="/" element={
                     <ProfileContextProvider>
@@ -34,6 +34,11 @@ const AppRoutes = () => {
                 <Route path="/watch/:id" element={<Suspense fallback={<StreamingSkeleton />}>
                     <ScrollToTop />
                     <StreamVideo />
+                </Suspense>}
+                />
+                <Route path="playlists/playlists/:id" element={<Suspense fallback={<StreamingSkeleton />}>
+                    <ScrollToTop />
+                    <Test />
                 </Suspense>}
                 />
                 <Route path="*" element={<NotFoundPage />} />

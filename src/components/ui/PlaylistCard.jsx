@@ -1,9 +1,19 @@
 import { CgPlayList } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 export default function PlaylistCard({ playlist }) {
+    const navigate = useNavigate()
+    const handleClick = (id) => {
+        if (id) {
+            navigate(`playlists/${id}`);
+        } else {
+            console.warn("VideoCard ======> \n: videoId not found in video object", video);
+        }
+    }
     // console.log(playlist)
     return (
-        <div className="w-65 cursor-pointer">
+        // <div className="w-65 cursor-pointer" onClick={() => console.log(playlist)} >
+        <div className="w-65 cursor-pointer" onClick={() => handleClick(playlist?.id)} >
 
             {/* Stack */}
 
