@@ -1,17 +1,13 @@
 import { AxiosInstanceForYoutube } from "../config/axios";
 
-export const fetchPlaylist = async (limit = 20, page = 1) => {
+export const fetchComments = async () => {
   try {
     const res = await AxiosInstanceForYoutube.request({
       method: "GET",
-      url: "/playlists",
-      params: {
-        page,
-        limit,
-      },
+      url: "/comments/cv-6bAeYsOY",
       headers: { accept: "application/json" },
     });
-    // console.log(res.data);
+
     return res.data.data;
   } catch (error) {
     console.log(error);

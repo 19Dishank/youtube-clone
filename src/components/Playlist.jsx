@@ -1,24 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchPlaylist } from "../services/fetchPlaylist";
 import PlaylistCard from "./ui/PlaylistCard";
 import { useOutletContext } from "react-router-dom";
+import { PlayListContext } from "../context/PlayListContext";
 
 const Playlist = () => {
-    const [playlist, setPlaylist] = useState(null)
+
+    const { playlist } = useContext(PlayListContext)
+
     const context = useOutletContext()
     const searchQuery = context?.searchQuery || ''
-
-    useEffect(() => {
-        const getPlaylist = async () => {
-            try {
-                const data = await fetchPlaylist()
-                setPlaylist(data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getPlaylist()
-    }, [])
 
     // Filter playlists based on search query
     const filteredPlaylists = searchQuery

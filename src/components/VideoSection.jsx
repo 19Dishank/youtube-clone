@@ -1,24 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import VideoCard from "./ui/VideoCard";
 import { fetchRelatedVideos } from "../services/fetchRelatedVideo";
 import { useOutletContext } from "react-router-dom";
+import { RelatedVIdeoContext } from "../context/RelatedVideoContext";
 
 export default function VideoSection() {
-    const [relatedVideos, setRelatedVideos] = useState(null)
+
+    const { relatedVideos } = useContext(RelatedVIdeoContext)
+
     const context = useOutletContext()
     const searchQuery = context?.searchQuery || ''
-
-    useEffect(() => {
-        const getRelatedVideos = async () => {
-            try {
-                const data = await fetchRelatedVideos()
-                setRelatedVideos(data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getRelatedVideos()
-    }, [])
 
     const filteredVideos = searchQuery
         ? relatedVideos?.data?.filter((videoWrapper) => {

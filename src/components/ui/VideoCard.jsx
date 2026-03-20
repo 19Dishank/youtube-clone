@@ -1,10 +1,12 @@
-import React from 'react'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { formatNumber, formatYtDuration, timeAgo } from '../../helper/helperfunctions'
+import { useNavigate } from 'react-router-dom'
 
 const VideoCard = ({ video }) => {
+    const navigate = useNavigate()
     return (
-        <div className="w-80 cursor-pointer">
+        <div className="w-80 cursor-pointer" onClick={() => navigate(`/watch/${video?.id}`)}>
+            {/* <div className="w-80 cursor-pointer" onClick={() => console.log('Video Id:', video?.items?.id)}> */}
 
             <div className="relative rounded-xl overflow-hidden group">
                 <img
