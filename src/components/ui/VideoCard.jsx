@@ -4,9 +4,15 @@ import { useNavigate } from 'react-router-dom'
 
 const VideoCard = ({ video }) => {
     const navigate = useNavigate()
+    const handleClick = (id) => {
+        if (id) {
+            navigate(`/watch/${id}`);
+        } else {
+            console.warn("VideoCard ======> \n: videoId not found in video object", video);
+        }
+    }
     return (
-        <div className="w-80 cursor-pointer" onClick={() => navigate(`/watch/${video?.id}`)}>
-            {/* <div className="w-80 cursor-pointer" onClick={() => console.log('Video Id:', video?.items?.id)}> */}
+        <div className="w-80 cursor-pointer" onClick={() => handleClick(video?.items?.id)}>
 
             <div className="relative rounded-xl overflow-hidden group">
                 <img

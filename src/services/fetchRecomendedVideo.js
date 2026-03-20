@@ -1,10 +1,14 @@
 import { AxiosInstanceForYoutube } from "../config/axios";
 
-export const fetchRecommendedVideos = async (limit = 10, page = 1) => {
+export const fetchRecommendedVideos = async (limit = 10, page = 1, videoId) => {
+  if (!videoId) {
+    throw new Error("videoId is required to fetch recommended videos");
+  }
+
   try {
     const res = await AxiosInstanceForYoutube.request({
       method: "GET",
-      url: "/related/eLyISYdoVac",
+      url: `/related/${videoId}`,
       params: {
         page,
         limit,
@@ -15,5 +19,6 @@ export const fetchRecommendedVideos = async (limit = 10, page = 1) => {
     return res.data.data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };

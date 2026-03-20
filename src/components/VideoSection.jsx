@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import VideoCard from "./ui/VideoCard";
-import { fetchRelatedVideos } from "../services/fetchRelatedVideo";
+import { fetchVideos } from "../services/fetchVideo";
 import { useOutletContext } from "react-router-dom";
 import { RelatedVIdeoContext } from "../context/RelatedVideoContext";
 

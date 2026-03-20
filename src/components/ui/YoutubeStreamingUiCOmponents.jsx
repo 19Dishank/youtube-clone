@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { formatNumber, formatYtDuration, timeAgo } from "../../helper/helperfunctions";
 import { CommentContext } from "../../context/CommentsContext";
 import { VideoByIdContext } from "../../context/VideoById";
+import { useNavigate } from "react-router-dom";
+import { RecommendedVideoContext } from "../../context/RecomendedVideoContext";
 
 export const Icons = {
     Back: () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>,
@@ -19,11 +21,11 @@ const COMMENTS = [
     { id: 3, user: "DesignGuru", text: "Love the light mode palette you chose here. Very easy on the eyes.", time: "1 day ago", likes: 108 },
 ];
 
-
+// components
 export const Header = ({ navigate }) => (
     <header className="flex items-center px-4 h-16 bg-white border-b border-gray-200 sticky top-0 z-50">
         <button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-800"
-            onClick={() => navigate('/')}
+            onClick={() => navigate(-1)}
         >
             <Icons.Back />
         </button>
@@ -32,28 +34,36 @@ export const Header = ({ navigate }) => (
 
 export const VideoPlayer = ({ url }) => {
     const { video } = useContext(VideoByIdContext)
-    console.log(video)
     return (
-        <div className="w-full aspect-video bg-black sm:rounded-xl overflow-hidden relative group shadow-sm">
-            <iframe
-                className="w-full h-full"
-                src={url}
-                title="YouTube video player"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-            ></iframe>
+        <div className="w-full">
+
+            {/* Player */}
+            <div className="w-full aspect-video bg-black sm:rounded-xl overflow-hidden relative group shadow-sm">
+                <iframe
+                    className="w-full h-full"
+                    src={url}
+                    title={video?.video.items?.snippet?.title || ""}
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                ></iframe>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold mt-3 px-3 sm:px-0 md:px-0 lg:px-0 text-gray-900 leading-snug">
+                {video?.video.items?.snippet?.title || "Loading..."}
+            </h1>
+
         </div>
     );
 }
 
-export const Comments = () => {
-
+export const Comments = ({ details }) => {
     const [isHidden, setIsHidden] = useState(true)
     const { comments } = useContext(CommentContext)
     // console.log(comments)
     return (
         <div className="mt-6 text-gray-900">
-            <h3 className="text-xl font-bold mb-4">{comments?.length || 0} Comments</h3>
+            <h3 className="text-xl font-bold mb-4">{details?.items.statistics.commentCount || 0} Comments</h3>
             <div className="flex gap-4 mb-8">
                 <div className="w-10 h-10 rounded-full bg-purple-600 shrink-0 flex items-center justify-center font-bold text-white">U</div>
                 <div className="grow">
@@ -124,11 +134,11 @@ export const AdBanner = () => (
     </div>
 );
 
-export const ActionButtons = () => (
+export const ActionButtons = ({ details }) => (
     <div className="flex flex-wrap items-center gap-2 mt-4 md:mt-0">
         <div className="flex bg-gray-100 rounded-full border border-gray-200">
             <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 rounded-l-full transition-colors border-r border-gray-300 font-medium text-gray-800">
-                <Icons.ThumbsUp /> <span>124K</span>
+                <Icons.ThumbsUp /> <span>{details?.items.statistics.likeCount}</span>
             </button>
             <button className="flex items-center px-4 py-2 hover:bg-gray-200 rounded-r-full transition-colors text-gray-800">
                 <Icons.ThumbsDown />
@@ -149,46 +159,64 @@ export const ActionButtons = () => (
     </div>
 );
 
-export const Description = () => {
+export const Description = ({ details }) => {
     const [expanded, setExpanded] = useState(false);
     return (
         <div
-            className={`bg-gray-100 rounded-xl p-4 mt-4 cursor-pointer hover:bg-gray-200/70 transition-colors text-gray-800 ${expanded ? '' : 'line-clamp-3'}`}
-            onClick={() => setExpanded(!expanded)}
+            className="bg-gray-100 rounded-xl p-4 mt-4  hover:bg-gray-200/70 transition-colors text-gray-800"
+
         >
-            <div className="font-semibold mb-1 text-gray-900">
-                1.2M views &nbsp;•&nbsp; Oct 24, 2026
+            <div className="font-semibold mb-2 text-gray-900 text-sm">
+                {formatNumber(details?.items?.statistics?.viewCount)} views
+                &nbsp;•&nbsp;
+                {timeAgo(details?.items?.snippet?.publishedAt)}
             </div>
-            <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                In this video, we build a completely responsive UI layout using only React and Tailwind CSS.
-                <br /><br />
-                <a href="#" className="text-blue-600 hover:underline">#ReactJS</a> <a href="#" className="text-blue-600 hover:underline">#TailwindCSS</a> <a href="#" className="text-blue-600 hover:underline">#WebDev</a>
-                <br /><br />
-                {expanded && (
-                    <>
-                        Check out my other links:<br />
-                        Twitter: <a href="#" className="text-blue-600 hover:underline">@CodeMaster</a><br />
-                        GitHub: <a href="#" className="text-blue-600 hover:underline">github.com/codemaster</a><br />
-                        <br />
-                        Timestamps:<br />
-                        0:00 - Intro<br />
-                        2:30 - Layout Overview<br />
-                        10:15 - Writing Tailwind classes<br />
-                        22:00 - Making it responsive
-                    </>
-                )}
+            <p className={`text-sm leading-relaxed whitespace-pre-wrap ${expanded ? "" : "line-clamp-1"}`} >
+                {details?.items?.snippet?.description}
             </p>
-            {!expanded && <span className="font-semibold mt-2 block text-gray-900">Show more</span>}
-            {expanded && <span className="font-semibold mt-4 block text-gray-900">Show less</span>}
+            <div
+                className="w-fit cursor-pointer"
+                onClick={() => setExpanded(!expanded)}
+            >
+                {!expanded && (
+                    <span className="ml-1 font-semibold text-gray-900">
+                        ...more
+                    </span>
+                )}
+                {expanded && (
+                    <span className="block mt-2 text-sm font-semibold text-gray-900">
+                        Show less
+                    </span>
+                )}
+            </div>
+
         </div>
     );
 };
 
-export const RecommendedSidebar = ({ recommendedVideos }) => {
+export const RecommendedSidebar = ({ recommendedVideos, videoId }) => {
+    const { setVideoIdFromComp } = useContext(RecommendedVideoContext);
+
+    useEffect(() => {
+        if (videoId) {
+            setVideoIdFromComp(videoId);
+        }
+    }, [videoId]);
+
+    const navigate = useNavigate()
+    const handleClick = (id) => {
+        if (id) {
+            navigate(`/watch/${id}`);
+        } else {
+            console.warn("Recommended sideBar  ====> \n: videoId not found in video object", recommendedVideos);
+        }
+    }
     return (
         <div className="flex flex-col gap-3">
             {recommendedVideos?.map(video => (
-                <div key={video?.items?.id} className="flex gap-2 group cursor-pointer hover:bg-gray-100 p-2 -mx-2 rounded-xl transition-colors">
+                <div key={video?.items?.id} className="flex gap-2 group cursor-pointer hover:bg-gray-100 p-2 -mx-2 rounded-xl transition-colors"
+                    onClick={() => handleClick(video?.items?.id)}
+                >
                     <div className="relative w-40 shrink-0 rounded-lg overflow-hidden aspect-video shadow-sm">
                         <img src={video?.items?.snippet?.thumbnails?.high?.url}
                             alt={video?.items?.snippet?.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
