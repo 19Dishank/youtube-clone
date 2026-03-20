@@ -1,23 +1,42 @@
 import { Route, Routes } from 'react-router-dom'
 import YoutubeProfileRoute from './YoutubeProfileRoute'
-import VideoSection from '../components/VideoSection'
-import Playlist from '../components/Playlist'
-import StreamVideo from '../components/ui/StreamVideo'
 import ScrollToTop from '../components/ui/ScrollToTop'
-import { RecommendedVideoContextProvider } from '../context/RecomendedVideoContext'
+import { lazy, Suspense } from 'react'
+import { StreamingSkeleton, VideoGridSkeleton } from '../components/Skeletons'
+import { PlayListContextProvider } from '../context/PlayListContext'
+import { ProfileContextProvider } from '../context/ProfileContext'
+import NotFoundPage from '../components/NotFoundPage'
+
+
+const VideoSection = lazy(() => import('../components/VideoSection'))
+const Playlist = lazy(() => import('../components/Playlist'))
+const StreamVideo = lazy(() => import('../components/ui/StreamVideo'))
 
 const AppRoutes = () => {
     return (
         <>
-            <ScrollToTop />
+
             <Routes>
-                <Route path="/" element={<YoutubeProfileRoute />}>
-                    <Route index element={<VideoSection />} />
-                    <Route path="playlists" element={<Playlist />} />
+                <Route path="/" element={
+                    <ProfileContextProvider>
+                        <YoutubeProfileRoute />
+                    </ProfileContextProvider>
+                }>
+                    <Route index element={<Suspense fallback={<VideoGridSkeleton />}>
+                        <VideoSection />
+                    </Suspense>}
+                    />
+                    <Route path="playlists" element={<Suspense fallback={<VideoGridSkeleton />}>
+                        <Playlist />
+                    </Suspense>}
+                    />
                 </Route>
-
-                <Route path="/watch/:id" element={<StreamVideo />} />
-
+                <Route path="/watch/:id" element={<Suspense fallback={<StreamingSkeleton />}>
+                    <ScrollToTop />
+                    <StreamVideo />
+                </Suspense>}
+                />
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </>
     )

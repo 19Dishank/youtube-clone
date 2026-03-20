@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { fetchPlaylist } from "../services/fetchPlaylist";
 import PlaylistCard from "./ui/PlaylistCard";
 import { useOutletContext } from "react-router-dom";
 import { PlayListContext } from "../context/PlayListContext";
