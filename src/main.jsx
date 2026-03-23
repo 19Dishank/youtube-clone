@@ -6,8 +6,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { ProfileContextProvider } from './context/ProfileContext.jsx'
 import { RelatedVIdeoContextProvider } from './context/RelatedVideoContext.jsx'
 import { RecommendedVideoContextProvider } from './context/RecomendedVideoContext.jsx'
-import { PlayListVideoByIdContextProvider } from './context/PlayListDetailsContext.jsx'
 import { PlayListContextProvider } from './context/PlayListContext.jsx'
+import { PlayListVideoByIdContextProvider } from './context/PlayListVideoByIdContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <ProfileContextProvider>

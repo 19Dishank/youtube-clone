@@ -19,7 +19,7 @@ const Playlist = () => {
             return title.includes(query) || description.includes(query)
         })
         : playlist?.data
-
+    // console.log(playlist)
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
@@ -30,9 +30,9 @@ const Playlist = () => {
                 <p className="text-center text-gray-500">No playlists found matching your search.</p>
             )}
 
-            <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 3xl:grid-cols-6 justify-items-center ">
+            <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 3xl:grid-cols-6 w-full px-4">
                 {filteredPlaylists?.map((pl, i) => (
-                    <PlaylistCard key={i} playlist={pl} />
+                    <PlaylistCard key={pl.id || i} playlist={pl} />
                 ))}
             </div>
         </div>
