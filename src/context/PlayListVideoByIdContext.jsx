@@ -8,7 +8,7 @@ export const PlayListVideoByIdContextProvider = ({ children, PlaylistId }) => {
     const [playlistVideo, setPlaylistVideo] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-
+    // console.log(PlaylistId)
     useEffect(() => {
         if (!PlaylistId) return
 
@@ -19,7 +19,7 @@ export const PlayListVideoByIdContextProvider = ({ children, PlaylistId }) => {
 
             try {
                 const data = await fetchPlaylistDetails(PlaylistId)
-                console.log("Playlist Video Details ======> \n", data)
+                // console.log("Playlist Video Details ======> \n", data)
                 setPlaylistVideo(data)
             } catch (error) {
                 console.error('Error fetching playlist video:', error)

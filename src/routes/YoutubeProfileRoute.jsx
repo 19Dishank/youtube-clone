@@ -15,7 +15,6 @@ const YoutubeProfileRoute = () => {
         { name: 'Playlists', path: '/playlists' }
     ]
 
-
     return (
         <>
             <ChanelDetails data={profileDetails?.data} />
