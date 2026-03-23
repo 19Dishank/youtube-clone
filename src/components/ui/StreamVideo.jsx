@@ -6,7 +6,7 @@ import { formatNumber } from '../../helper/helperfunctions';
 import { CommentContextProvider } from '../../context/CommentsContext';
 import { VideoByIdContext, VideoByIdContextProvider } from '../../context/VideoById';
 import { StreamingSkeleton } from '../Skeletons';
-import { PlayListVideoByIdContext } from '../../context/PlayListVideoByIdContext';
+import { SubscribeButton } from './Uicomponents';
 
 
 const StreamVideoContent = ({ url, videoId }) => {
@@ -40,12 +40,10 @@ const StreamVideoContent = ({ url, videoId }) => {
                                     <img src={video?.channel.info.thumbnails.medium.url} alt="channel profile" className="w-full h-full object-cover rounded-full" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-[15px] leading-tight text-gray-900">{video?.channel.info.title}</h3>
+                                    <h3 className="font-bold text-[15px] leading-tight text-gray-900 truncate max-w-45 sm:max-w-55 md:max-w-65 lg:max-w-[320px]">{video?.channel.info.title}</h3>
                                     <p className="text-xs text-gray-500">{formatNumber(video?.channel.statistics.subscriberCount)} subscribers</p>
                                 </div>
-                                <button className="ml-2 bg-black text-white hover:bg-gray-800 px-4 py-2 rounded-full font-semibold text-sm transition-colors">
-                                    Subscribe
-                                </button>
+                                <SubscribeButton />
                             </div>
 
                             <ActionButtons details={video?.video} />

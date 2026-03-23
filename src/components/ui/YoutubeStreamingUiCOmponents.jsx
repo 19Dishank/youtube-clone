@@ -96,7 +96,7 @@ export const Comments = ({ details }) => {
             </div>
 
             <div className="flex flex-col gap-6">
-                {comments?.map(comment => (
+                {comments?.length > 0 ? comments?.map(comment => (
                     <div key={comment.id} className="flex gap-4">
                         <div className="w-10 h-10 rounded-full bg-blue-100 shrink-0 flex items-center justify-center font-bold text-sm text-blue-600 border border-blue-200">
 
@@ -121,7 +121,9 @@ export const Comments = ({ details }) => {
                             </div>
                         </div>
                     </div>
-                ))}
+                )) : (
+                    <p className="text-gray-500 text-sm">No comments yet. Be the first to comment!</p>
+                )}
             </div>
         </div>
     )
@@ -160,7 +162,7 @@ export const ActionButtons = ({ details }) => (
         <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full border border-gray-200 transition-colors font-medium text-gray-800">
             <Icons.Share /> <span className="hidden sm:inline">Share</span>
         </button>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full border border-gray-200 transition-colors font-medium text-gray-800">
+        {/* <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full border border-gray-200 transition-colors font-medium text-gray-800">
             <Icons.Clip /> <span className="hidden lg:inline">Clip</span>
         </button>
         <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full border border-gray-200 transition-colors font-medium hidden sm:flex text-gray-800">
@@ -168,7 +170,7 @@ export const ActionButtons = ({ details }) => (
         </button>
         <button className="p-2 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-full transition-colors text-gray-800">
             <Icons.More />
-        </button>
+        </button> */}
     </div>
 );
 

@@ -9,6 +9,7 @@ import { fetchVideoById } from '../services/GetVideoById'
 import { Play, Repeat, Shuffle } from 'lucide-react'
 import { IoPlay } from 'react-icons/io5'
 import { RecommendedVideoContext } from '../context/RecomendedVideoContext'
+import { SubscribeButton } from './ui/Uicomponents'
 
 const PlaylistStreamContent = () => {
     const { playlistVideo, loading } = useContext(PlayListVideoByIdContext)
@@ -37,6 +38,8 @@ const PlaylistStreamContent = () => {
         videoDetails()
     }, [selectedVideoId])
 
+
+
     const currentVideo = videos.find(
         v => v?.snippet?.resourceId?.videoId === selectedVideoId
     ) || videos[0]
@@ -47,7 +50,7 @@ const PlaylistStreamContent = () => {
     useEffect(() => {
         document.title = `${currentVideo?.snippet?.title || ` `}  - YouTube` || "YouTube Video"
     }, [currentVideo])
-    // console.log(video)
+    // console.log(videos)
     // console.log(playlistVideo)
     if (loading) return <StreamingSkeleton />
     return (
@@ -91,9 +94,7 @@ const PlaylistStreamContent = () => {
                                         {formatNumber(channel?.statistics?.subscriberCount)} subscribers
                                     </span>
                                 </div>
-                                <button className="ml-2 bg-[#0f0f0f] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#272727] transition-colors">
-                                    Subscribe
-                                </button>
+                                <SubscribeButton />
                             </div>
 
                             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">

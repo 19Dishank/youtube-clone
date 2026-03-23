@@ -30,7 +30,7 @@ export default function PlaylistCard({ playlist }) {
 
                     <div className="absolute bottom-2 right-2 bg-black/70 text-white text-[10px] sm:text-xs px-2 py-1 rounded flex items-center gap-1 font-bold">
                         <CgPlayList className="text-sm" />
-                        {playlist?.videoCount || "0"} videos
+                        {playlist?.videoCount || " "} videos
                     </div>
 
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
