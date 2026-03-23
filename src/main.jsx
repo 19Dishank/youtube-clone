@@ -7,16 +7,18 @@ import { ProfileContextProvider } from './context/ProfileContext.jsx'
 import { RelatedVIdeoContextProvider } from './context/RelatedVideoContext.jsx'
 import { RecommendedVideoContextProvider } from './context/RecomendedVideoContext.jsx'
 import { PlayListContextProvider } from './context/PlayListContext.jsx'
+import { PlayListVideoByIdContextProvider } from './context/PlayListVideoByIdContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-
-  <RelatedVIdeoContextProvider>
-    <PlayListContextProvider>
-      <RecommendedVideoContextProvider>
-        <App />
-      </RecommendedVideoContextProvider>
-    </PlayListContextProvider>
-  </RelatedVIdeoContextProvider>
-
-
+  <ProfileContextProvider>
+    <RelatedVIdeoContextProvider>
+      <PlayListContextProvider>
+        <PlayListVideoByIdContextProvider>
+          <RecommendedVideoContextProvider>
+            <App />
+          </RecommendedVideoContextProvider>
+        </PlayListVideoByIdContextProvider>
+      </PlayListContextProvider>
+    </RelatedVIdeoContextProvider>
+  </ProfileContextProvider>
 )

@@ -1,28 +1,36 @@
-import React, { useContext } from 'react';
-import { ActionButtons, Comments, Description, Header, VideoPlayer, RecommendedSidebar } from './YoutubeStreamingUiCOmponents';
+import React, { useContext, useEffect } from 'react';
+import { ActionButtons, Comments, Description, Header, VideoPlayer, RecommendedSidebar, PlaylistSidebar } from './YoutubeStreamingUiCOmponents';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RecommendedVideoContext } from '../../context/RecomendedVideoContext';
 import { formatNumber } from '../../helper/helperfunctions';
 import { CommentContextProvider } from '../../context/CommentsContext';
 import { VideoByIdContext, VideoByIdContextProvider } from '../../context/VideoById';
 import { StreamingSkeleton } from '../Skeletons';
+import { PlayListVideoByIdContext } from '../../context/PlayListVideoByIdContext';
 
 
 const StreamVideoContent = ({ url, videoId }) => {
     const { recommendedVideos } = useContext(RecommendedVideoContext)
     const navigate = useNavigate()
-
     const { video, loading } = useContext(VideoByIdContext)
+
+
+    useEffect(() => {
+        document.title = `${video?.video.items?.snippet?.title || ` `}  - YouTube` || "YouTube Video"
+    }, [video])
+
+
     if (loading) {
         return (
             <StreamingSkeleton />
         );
     }
+
     return (
         <div className="min-h-screen bg-white text-gray-900 font-sans overflow-x-hidden">
             <Header navigate={navigate} />
             <div className="max-w-400 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-8 p-0 sm:p-4 lg:p-6">
-                {/* Left / Main Content Container */}
+
                 <div className="lg:col-span-2">
                     <VideoPlayer url={url} />
                     <div className="px-4 sm:px-0 mt-4">
@@ -53,7 +61,7 @@ const StreamVideoContent = ({ url, videoId }) => {
                     </div>
                 </div>
 
-                {/* Right / Sidebar Content Container */}
+
                 <div className="lg:col-span-1 px-4 sm:px-0">
                     <div className="sticky top-20">
                         <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
@@ -64,6 +72,7 @@ const StreamVideoContent = ({ url, videoId }) => {
                         </div>
 
                         <RecommendedSidebar recommendedVideos={recommendedVideos} videoId={videoId} />
+
                     </div>
                 </div>
 

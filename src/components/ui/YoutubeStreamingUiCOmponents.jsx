@@ -4,6 +4,7 @@ import { CommentContext } from "../../context/CommentsContext";
 import { VideoByIdContext } from "../../context/VideoById";
 import { useNavigate } from "react-router-dom";
 import { RecommendedVideoContext } from "../../context/RecomendedVideoContext";
+import { X, Repeat, Shuffle, MoreVertical, Play } from 'lucide-react';
 
 export const Icons = {
     Back: () => <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>,
@@ -13,6 +14,18 @@ export const Icons = {
     Share: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>,
     Save: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>,
     Clip: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" /></svg>,
+    Repeat: () => (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3" />
+        </svg>
+    ),
+    Shuffle: () => (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M4 4h5l7 16h4M4 20h5l2.5-6M15.5 10L20 4h-4" />
+        </svg>
+    ),
 };
 
 const COMMENTS = [
@@ -240,3 +253,104 @@ export const RecommendedSidebar = ({ recommendedVideos, videoId }) => {
 
     )
 };
+
+
+export const videos = [
+    {
+        id: 'v1',
+        title: 'Lets build a SAAS starter template with Clerk and NextJS',
+        channelName: 'Hitesh Choudhary',
+        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
+        duration: '11:36'
+    },
+    {
+        id: 'v2',
+        title: 'Event Driven Architecture | A guide on Clerk Webhooks',
+        channelName: 'Hitesh Choudhary',
+        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
+        duration: '12:38'
+    },
+    // ... more videos
+];
+export const PlaylistSidebar = ({ playlistTitle, author, videos, currentVideoId }) => {
+    return (
+        <div className="w-full max-w-[400px] border border-gray-200 rounded-xl overflow-hidden bg-white flex flex-col h-[500px]">
+            {/* Header Section */}
+            <div className="p-4 bg-gray-50 border-b border-gray-200">
+                <div className="flex justify-between items-start mb-2">
+                    <div className="pr-4">
+                        <h2 className="font-bold text-lg leading-tight line-clamp-1">
+                            {playlistTitle}
+                        </h2>
+                        <p className="text-sm text-gray-600 mt-1">
+                            {author} - <span className="text-xs font-medium">1/8</span>
+                        </p>
+                    </div>
+                    <button className="p-1 hover:bg-gray-200 rounded-full transition-colors">
+                        <X size={20} />
+                    </button>
+                </div>
+
+                {/* Playlist Controls */}
+                <div className="flex items-center gap-4 mt-2">
+                    <button className="text-gray-600 hover:text-black transition-colors">
+                        <Repeat size={18} />
+                    </button>
+                    <button className="text-gray-600 hover:text-black transition-colors">
+                        <Shuffle size={18} />
+                    </button>
+                    <div className="ml-auto">
+                        <button className="p-1 hover:bg-gray-200 rounded-full">
+                            <MoreVertical size={18} />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Video List Section */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+                {videos.map((video, index) => {
+                    const isActive = video.id === currentVideoId;
+                    return (
+                        <div
+                            key={video.id}
+                            className={`flex gap-3 p-2 cursor-pointer transition-colors ${isActive ? 'bg-blue-50/80 hover:bg-blue-100/80' : 'hover:bg-gray-100'
+                                }`}
+                        >
+                            {/* Index or Play Icon */}
+                            <div className="w-4 flex items-center justify-center shrink-0">
+                                {isActive ? (
+                                    <Play size={10} fill="black" className="ml-1" />
+                                ) : (
+                                    <span className="text-[11px] text-gray-500">{index + 1}</span>
+                                )}
+                            </div>
+
+                            {/* Thumbnail */}
+                            <div className="relative w-24 h-14 shrink-0">
+                                <img
+                                    src={video.thumbnail}
+                                    alt={video.title}
+                                    className="w-full h-full object-cover rounded-md"
+                                />
+                                <div className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] px-1 rounded">
+                                    {video.duration}
+                                </div>
+                            </div>
+
+                            {/* Info */}
+                            <div className="flex flex-col justify-start">
+                                <h4 className={`text-sm font-semibold line-clamp-2 leading-snug ${isActive ? 'text-black' : 'text-gray-900'
+                                    }`}>
+                                    {video.title}
+                                </h4>
+                                <p className="text-[11px] text-gray-500 mt-1">{video.channelName}</p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+

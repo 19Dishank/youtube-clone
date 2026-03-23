@@ -3,7 +3,6 @@ import YoutubeProfileRoute from './YoutubeProfileRoute'
 import ScrollToTop from '../components/ui/ScrollToTop'
 import { lazy, Suspense } from 'react'
 import { StreamingSkeleton, VideoGridSkeleton } from '../components/Skeletons'
-import { PlayListContextProvider } from '../context/PlayListContext'
 import { ProfileContextProvider } from '../context/ProfileContext'
 import NotFoundPage from '../components/NotFoundPage'
 
@@ -11,11 +10,11 @@ import NotFoundPage from '../components/NotFoundPage'
 const VideoSection = lazy(() => import('../components/VideoSection'))
 const Playlist = lazy(() => import('../components/Playlist'))
 const StreamVideo = lazy(() => import('../components/ui/StreamVideo'))
+const StreamPlaylist = lazy(() => import('../components/StreamPlaylist'))
 
 const AppRoutes = () => {
     return (
         <>
-
             <Routes>
                 <Route path="/" element={
                     <ProfileContextProvider>
@@ -34,6 +33,11 @@ const AppRoutes = () => {
                 <Route path="/watch/:id" element={<Suspense fallback={<StreamingSkeleton />}>
                     <ScrollToTop />
                     <StreamVideo />
+                </Suspense>}
+                />
+                <Route path="/playlists/:id" element={<Suspense fallback={<StreamingSkeleton />}>
+                    <ScrollToTop />
+                    <StreamPlaylist />
                 </Suspense>}
                 />
                 <Route path="*" element={<NotFoundPage />} />
