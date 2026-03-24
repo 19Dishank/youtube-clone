@@ -160,7 +160,7 @@ const PlaylistStreamContent = () => {
                                     <div
                                         key={videoId}
                                         onClick={() => setSelectedVideoId(videoId)}
-                                        className={`flex gap-2 p-2 cursor-pointer transition-colors ${isPlaying ? 'bg-[#f2f2f2]' : 'hover:bg-[#f9f9f9]'}`}
+                                        className={`flex gap-2 p-2 cursor-pointer transition-colors ${isPlaying ? 'bg-[#dddddd]' : 'hover:bg-[#f9f9f9]'}`}
                                     >
                                         <div className="flex items-center justify-center w-6 shrink-0 text-[11px]">
                                             {isPlaying ? <IoPlay size={12} className="text-gray-700" /> : index + 1}
@@ -169,7 +169,7 @@ const PlaylistStreamContent = () => {
                                             <img src={video?.snippet?.thumbnails?.medium?.url} className="w-full h-full object-cover" />
                                         </div>
                                         <div className="flex flex-col min-w-0">
-                                            <h4 className={`text-[13px] font-medium leading-tight line-clamp-2 ${isPlaying ? 'text-blue-600' : ''}`}>
+                                            <h4 className={`text-[13px] font-medium leading-tight line-clamp-2 `}>
                                                 {video?.snippet?.title}
                                             </h4>
                                             <p className="text-[11px] text-[#606060] mt-1 truncate">
